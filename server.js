@@ -4,16 +4,10 @@ const userRoutes = require("./routes/UserRoutes");
 const mongoose = require("mongoose");
 const path=require("path");
 const app = express();
-
-app.use(cors(
-  {
-    origin:["https://clone-netflix-lac-seven.vercel.app"],
-    method:["POST","GET"],
-    credentials:true;
-  }
-));
+const moragen=require("morgan");
+app.use(cors());
 app.use(express.json());
-
+app.use(moragen("dev"));
 const PORT =process.env.PORT || 5000;
 mongoose
   .connect("mongodb://0.0.0.0:27017/netflix", {
@@ -32,7 +26,7 @@ app.use("/api/user", userRoutes);
 
 app.use(express.static(path.join(__dirname,"./client/build")));
 app.use('*',function(req,res){
-  res.sendFile(path.join(__dirname,'./client/build/index.html'));
+  res.sendFile(path.join(__dirname,"./client/build/index.html"));
 })
 
 
