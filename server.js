@@ -5,7 +5,13 @@ const mongoose = require("mongoose");
 const path=require("path");
 const app = express();
 
-app.use(cors());
+app.use(cors(
+  {
+    origin:["https://clone-netflix-lac-seven.vercel.app"],
+    method:["POST","GET"],
+    credentials:true;
+  }
+));
 app.use(express.json());
 
 const PORT =process.env.PORT || 5000;
